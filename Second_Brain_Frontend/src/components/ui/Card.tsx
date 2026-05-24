@@ -1,33 +1,51 @@
 import  { ShareIcon } from "../../icons/ShareIcon";
+import { useEffect } from "react";
 
-export function Card(){
+interface CardProps{
+    title:"string";
+    link:"string";
+    type:"twitter" | "youtude";
+}
+
+export function Card({title,link,type} :CardProps){
+    useEffect(() => {
+    //@ts-ignore
+    window.twttr?.widgets.load();
+    });
+
     return <div>
-        <div className="p-4 bg-white rounded-md border-gray-200 max-w-72 border ">
+        <div className="p-4 bg-white rounded-md border-gray-200 max-w-72 border min-h-48 min-w-72 ">
             <div className="flex justify-between">
                 <div className="flex items-center text-lg">
                     <div className="text-gray-700 pr-2 ">
                         <ShareIcon size="lg"/>
                     </div>
-                    Project idea
+                    <div className="pl-4">{title}</div>
+                    
                 </div>
                 <div className="flex">
                     <div className="pr-2 text-gray-500">
-                        <ShareIcon size="lg"/>
+                        <a href={link} target="_blank">
+                            <ShareIcon size="lg"/>
+                        </a>
+                        
                     </div>
-                    <div className="text-gray-500">
+                    {/* <div className="text-gray-500">
                         <ShareIcon size="lg"/>
-                    </div>
+                    </div> */}
                 </div>
             </div>
 
             <div className="pt-4">
-              {/* <iframe className="w-full" src="https://www.youtube.com/embed/23e6R4G8Res?si=RocmL7fVEzI58Pz1" title="YouTube video player" 
-              frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-               referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe> */}
+
+              { type==="youtude" && <iframe className="w-full" src={link.replace("watch?v=","embed/")} 
+              title="Youtude video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+               referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>}
                
-               <blockquote className="twitter-tweet">
-  <a href="https://twitter.com/Interior/status/463440424141459456"></a>
-</blockquote>
+               {type==="twitter" &&<blockquote className="twitter-tweet">
+                <a href ={link.replace("x.com","twitter.com")}></a>
+                </blockquote> }
+               
             </div>
 
         </div>
