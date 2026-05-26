@@ -8,7 +8,8 @@ interface ButtonProps {
     text: string;
     startIcon?: ReactElement;
     endIcon?: ReactElement;
-    onclick: () => void;
+    onClick?: () => void;
+    fullWidth?:boolean;
 }
 
 const variantStyles ={
@@ -26,8 +27,10 @@ const defaultStyles= "rounded-md  "
 
 export const Button= (props:ButtonProps) =>{
 
-    return <button className={`${variantStyles[props.variant]}
-     ${defaultStyles} ${sizeStyles[props.size]}`}>
+    return <button 
+    onClick={props.onClick}
+    className={`${variantStyles[props.variant]}
+     ${defaultStyles} ${sizeStyles[props.size]} ${props.fullWidth ? "w-full flex justify-center items-center" : ""}`} >
             <div className="flex items-center">
                 {props.startIcon ? <div className="pr-2">{props.startIcon}  </div> :null} 
                 <div className="pl-2 pr-2">
@@ -35,9 +38,9 @@ export const Button= (props:ButtonProps) =>{
                 </div>
                 
                 {props.endIcon ? <div className="pr-2">{props.endIcon}  </div> :null}
-
+                
             </div>
          </button>
 }
 
-<Button variant="primary" size="md" onclick ={() => {}}  text ={"asd"}/>
+<Button variant="primary" size="md" onClick ={() => {}}  text ={"asd"}/>
